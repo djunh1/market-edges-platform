@@ -5,7 +5,7 @@
 ### Dougs app todos. 
 [x] 1.  upgrade to postgres 17
 2. For blog, add post/Review model
-3. Add stocks to the portfolios
+[] 3. Add stocks to the portfolios
 4. Add integration to FMP for getting stock prices
 [x] 5. Unit tests
 [] 6. Secure SMTP and different email provider
@@ -151,3 +151,30 @@ ALTER DEFAULT PRIVILEGES
 ```
 psql -U postgres -d <db_name>
 ```
+
+
+# Getting front end stuff set up - this project will use v20.2.0 for node.
+
+// check version
+node -v || node --version
+
+// list locally installed versions of node
+nvm ls
+
+// list remove available versions of node
+nvm ls-remote
+
+// install specific version of node
+nvm install 20.2.0
+
+// set default version of node
+nvm alias default 20.2.0
+
+// switch version of node
+nvm use 20.5.1
+
+// install latest LTS version of node (Long Term Support)
+nvm install --lts
+
+// install latest stable version of node
+nvm install stable
