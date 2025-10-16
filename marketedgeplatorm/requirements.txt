@@ -33,3 +33,5 @@ pytz
 # django-admin-interface
 # django-admin-rangefilter
 # openai
+
+dj-svg

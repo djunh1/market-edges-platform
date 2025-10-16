@@ -16,7 +16,9 @@
 
 # Getting a local python environment set up using pyenv
 
-We reccomend setting up a virtual environment with a specific version of python dedicated to this project.  At the time of creation we opted to use the latest and greatest with Django 4.2 and Python 3.11.  This will walk you through getting python and Django set up assuming you have not pulled down this source code yet.
+We reccomend setting up a virtual environment with a specific version of python dedicated to this project.  At the time of creation we opted to use Django 5.2 and Python 3.11.  This will walk you through getting python and Django set up assuming you have not pulled down this source code yet.
+
+# You may perform this section or the next to set up a virtual environment.  
 
 1. using homebrew, install pyenv and virtualenv to manage python installations and virutal environments:
 ```
@@ -45,8 +47,6 @@ pyenv activate django-portfolio-app-api
 pyenv local django-portfolio-app-api
 ```
 
-
-
 5.  Install Django and some other basic depedencies to get started:
 ```
 pip install Django==5.2.2
@@ -55,6 +55,50 @@ pip install numpy pandas matplotlib
 
 6. If you are using VS code, open a file and on the bottom right of the window, select the python interpreter.  You should be able to find an auto generated list
 of python runtimes to use.  Find "django-mkt-app" (python 3.11.0) or whatever you named your virtual environment.
+
+
+# Setting up virtual environments without using those stupid shims
+
+1. Set up virtual environment 
+
+Create the venv
+```
+python3 -m venv SME-ENV
+```
+
+Activate Venv
+```
+cd SME-ENV/bin && source activate
+```
+
+2. Install Django into the VENV if you haven't already
+
+```
+pip3 install Django==5.2.2
+pip3 install numpy pandas matplotlib
+```
+
+3. Don't forget to install the dependencies
+
+```
+pip3 install -r requirements.txt
+```
+
+
+# Seeing your data
+
+1. Install the seed data for the categories
+
+```
+python3 manage.py loaddata seeddata.json
+```
+
+2. Step 2 adds categories, and this step will add a bunch of random stocks and portoflios...
+
+```
+python3 manage.py populate_portfolios_management 50
+python3 manage.py populate_stocks_management 25
+```
 
 
 # Testing
@@ -138,7 +182,7 @@ ALTER DEFAULT PRIVILEGES
 REVOKE GRANT OPTION
     FOR ALL PRIVILEGES
     ON ALL TABLES
-    IN SCHEMA public
+    IN SCHEMA public 
     FROM <my_user>;
 ALTER DEFAULT PRIVILEGES
     REVOKE GRANT OPTION

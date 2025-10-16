@@ -16,7 +16,7 @@ class Portfolio(models.Model):
     tags = models.ManyToManyField('Tag',  blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    portfolio_type = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.name
@@ -67,17 +67,16 @@ class Stock(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     ticker = models.CharField(max_length=6)
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    ticker_name = models.CharField(max_length=8)
     company_name = models.TextField(null=True, blank=True)
     sector = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.portfolio + '_' + self.ticker_name
+        return self.portfolio.name + '_' + self.ticker
 
     class Meta:
-        ordering = ['ticker_name']
+        ordering = ['ticker']
 
     
     

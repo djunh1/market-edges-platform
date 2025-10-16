@@ -5,7 +5,9 @@ __pycache__
 .tox
 .cache
 .env
+SME-ENV
 /staticfiles/
 __pycache__
 marketedgeplatorm/static/images/profiles
 marketedgeplatorm/env/*
+.DS_store

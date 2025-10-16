@@ -1,0 +1,33 @@
+[
+  {
+      "model": "portfolios.Category",
+      "pk": 1,
+      "fields": {
+        "name": "Long Term",
+        "description": "playing the long game"
+      }
+    },
+    {
+      "model": "portfolios.Category",
+      "pk": 2,
+      "fields": {
+        "name": "Swing",
+        "description": "A couple of days to months"
+      }
+    },
+    {
+      "model": "portfolios.Category",
+      "pk": 3,
+      "fields": {
+        "name": "Value Investing",
+        "description": "EBIT over EBITDA.  Duh"
+      }
+    },
+    {
+      "model": "portfolios.Category",
+      "pk": 4,
+      "fields": {
+        "name": "Day Trade",
+        "description": "Short term"
+      }
+    }]

@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
-from .models import Portfolio, Tag
-from .forms import PortfolioForm, ReviewForm
+from .models import Portfolio, Tag, Stock
+from .forms import PortfolioForm, ReviewForm, StockForm
 from .utils import searchPortfolios, paginatePortfolios
 
 
@@ -13,7 +13,7 @@ from .utils import searchPortfolios, paginatePortfolios
 @login_required(login_url="login")
 def portfolios(request):
     portfolios, search_query = searchPortfolios(request)
-    custom_range, portfolios = paginatePortfolios(request, portfolios, 3)
+    custom_range, portfolios = paginatePortfolios(request, portfolios, 15)
 
     context = {'portfolios': portfolios, 'search_query': search_query, 'custom_range': custom_range}
     return render(request, 'portfolios/portfolios.html', context)
@@ -22,9 +22,14 @@ def portfolios(request):
 def portfolio(request, pk):
     portfolioObj = Portfolio.objects.get(id=pk)
     form = ReviewForm()
+    stockForm = StockForm()
+    ownPortfolio = (portfolioObj.owner == request.user.profile)
+
+    stockList = portfolioObj.stock_set.all()
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        # stockForm = StockForm(request.POST)
         review = form.save(commit=False)
         review.portfolio = portfolioObj
         review.owner = request.user.profile
@@ -34,7 +39,11 @@ def portfolio(request, pk):
 
         messages.success(request, 'Comment successfully posted.')
         return redirect('portfolio', pk=portfolioObj.id)
-    return render(request, 'portfolios/portfolio.html', {'portfolio': portfolioObj, 'form': form})
+    return render(request, 'portfolios/portfolio.html', {'portfolio': portfolioObj, 
+                                                         'form': form, 
+                                                         'stocklist': stockList,
+                                                         'stockform': stockForm,
+                                                         'owner': ownPortfolio})
 
 @login_required(login_url="login")
 def stock(request, pk):
@@ -91,3 +100,25 @@ def deletePortfolio(request, pk):
     
     context = {'object': portfolio}
     return render(request, 'delete_template.html', context)  
+
+@login_required(login_url="login")
+def addStock(request, pk):
+    portfolio = Portfolio.objects.get(id=pk)
+    if request.method == 'POST':
+        stock_form = StockForm(request.POST, portfolio)
+        if stock_form.is_valid():
+            stock = stock_form.save(commit=False)
+            stock.portfolio = portfolio
+            stock.save()
+
+
+    return redirect('portfolio', pk=portfolio.id)
+
+    
+@login_required(login_url="login")
+def deleteStock(request, pk):
+    referer_url = request.META.get('HTTP_REFERER')
+    stock = Stock.objects.get(id=pk)
+    if request.method == 'POST':
+        stock.delete()
+    return redirect(referer_url)
