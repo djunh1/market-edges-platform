@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     "portfolios.apps.PortfoliosConfig",
     "users.apps.UsersConfig",
+    "edges.apps.EdgesConfig",
     'dj_svg'
 ]
 SVG_DIR = os.path.join(BASE_DIR, "apps/static/svg") 

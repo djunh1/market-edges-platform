@@ -16,8 +16,8 @@
             <ul class="header__menu">
                 {% if request.user.is_authenticated %}
                     <li class="header__menuItem"><a href="{% url 'profiles' %}">Timeline</a></li>
+                    <li class="header__menuItem"><a href="{% url 'edges-home' %}">Edges</a></li>
                     <li class="header__menuItem"><a href="{% url 'profiles' %}">Blog</a></li>
-                    <li class="header__menuItem"><a href="{% url 'profiles' %}">How To</a></li>
                     <li class="header__menuItem"><a href="{% url 'profiles' %}">Members</a></li>
                     <li class="header__menuItem"><a href="{% url 'portfolios' %}">Portfolios</a></li>
                     <li class="header__menuItem"><a href="{% url 'account' %}">Account</a></li>
