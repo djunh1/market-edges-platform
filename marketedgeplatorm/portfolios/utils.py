@@ -16,7 +16,7 @@ def searchPortfolios(request) -> tuple[Portfolio, str]:
         Q(name__icontains=search_query) |
         Q(description__icontains=search_query) |
         Q(owner__username__icontains=search_query) |
-        Q(portfolio_type__icontains=search_query) |
+        Q(category__name__icontains=search_query) |
         Q(tags__in=tags)
     )
     return portfolios, search_query

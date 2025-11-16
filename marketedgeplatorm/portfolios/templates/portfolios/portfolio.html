@@ -33,11 +33,50 @@
 
             </div>
             <div class="column column--2of3">
-                <h2 class="singlePortfolio__title">{{portfolio.name}}</h2>
+                
+                <h1 class="singlePortfolio__title">{{portfolio.name}}</h1>
                 <div class="singlePortfolio__info">
                     {{portfolio.description}}
                 </div>
-                <h3 class="singlePortfolio__subtitle">Todo Table with holdings</h3>
+                <h3 class="singlePortfolio__subtitle">Holdings</h3>
+                <table border="1">
+                  <tr>
+                    <th>Ticker</th>
+                     <th>Update</th>
+                     <th>Action</th>
+                  </tr>
+                {% for stock in stocklist %}
+              
+                    <tr>
+                     <td>{{ stock.ticker }}</td>
+                     <td>{{ stock.updated_at }}</td>
+                     <td> {% load svg %}
+                        <form class="form" action="{% url 'delete-stock' stock.id %}" method="POST">
+                             {% csrf_token %}
+                           <input class="btn btn--sub btn--lg" type="submit" value="X" />
+                        </form>
+                        
+                    </tr>
+
+                {% endfor %}
+                </table>
+
+                {% if request.user.is_authenticated and owner %}
+                <h3 class="singlePortfolio__subtitle">Add new holding</h3>
+                    <form class="form" action="{% url 'add-stock' portfolio.id %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in stockform %}
+                        <div class="form__field">
+                            <label for="formInput#textarea">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+                        <input class="btn btn--sub btn--lg" type="submit" value="Add Stock" />
+                    </form>
+                    {% endif %}
+                
+
+
                 
                 <div class="comments">
                     <h3 class="singlePortfolio__subtitle">Discuss</h3>
