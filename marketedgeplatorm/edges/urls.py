@@ -9,5 +9,6 @@ from . import views
 
 urlpatterns = [
     path('', views.edges, name="edges-home"),
+    path('daily-odds', views.daily_odds, name="daily-odds"),
 
 ]

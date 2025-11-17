@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!-- Main Section -->
+<main class="singlePortfolio my-md">
+    <div class="container">
+        <div class="layout">
+            <h1>Daily Odds</h1>
+
+            <div class="auth">
+                <div class="card">
+                    <form method="POST" action="{% url 'daily-odds' %}" class="form auth__form">
+                    {% csrf_token %}
+
+            <div class="form-group">
+                <label for="ticker">Stock Ticker:</label>
+                <input
+                    type="text"
+                    id="ticker"
+                    name="ticker"
+                    placeholder="e.g., AAPL, MSFT, GOOGL"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input
+                    type="date"
+                    id="start_date"
+                    name="start_date"
+                    value="{{ default_start_date }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input
+                    type="date"
+                    id="end_date"
+                    name="end_date"
+                    value="{{ default_end_date }}"
+                    required
+                >
+            </div>
+
+            <div class="auth__actions">
+                <input class="btn btn--sub btn--md" type="submit" value="Submit" />
+            </div>
+        </form>
+                    
+                </div>  
+            </div>
+            
+        </div>
+        <div>
+            <h1>{{ json }}</h1>
+        </div>
+    </div>
+    </div>
+</main>
+
+{% endblock %}
